@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Timer</title>
+    <style>
+        .container{
+                width: 20rem;
+                margin: auto;
+                border: 2px solid gainsboro;
+                text-align: center;
+                padding: 0.8rem;
+        }
+        .input-val input{
+            width: 2rem;
+        }
+        .btns{
+            margin: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="display">
+            05:00
+        </div>
+        <div class="input-val">
+            <input type="number" class="minutes">
+            <input type="number" class="seconds">
+            <button class="submit">Submit</button>
+        </div>
+        <div class="btns">
+            <button onclick="handleStart()">Start</button>
+            <button class="pause">Pause</button>
+            <button class="reset">Reset</button>
+        </div>
+    </div>
+    <script>
+        let displayTimer = document.querySelector('.display')
+        let minutesInput = document.querySelector('.minutes')
+        let secondsInput = document.querySelector('.seconds')
+        let startbtn = document.querySelector('.start');
+        let pause = document.querySelector('.pause');
+        let reset = document.querySelector('.reset');
+        let submit = document.querySelector('.submit');
+
+        let timer ;
+        let minutes = 4;
+        let seconds = 59;
+
+        submit.addEventListener('click', ()=>{
+            minutes = Number(minutesInput.value);
+            seconds = Number(secondsInput.value);
+            clearInterval(timer);
+            handleStart()
+        })
+
+        function handleStart(){
+            timer = setInterval(()=>{
+                seconds--;
+        
+                if(seconds === 0 && seconds >= 1){
+                    seconds = 59;
+                    minutes--;
+                }
+                displayTimer.innerText = `${minutes}m:${seconds}s`
+                
+            },1000)
+        }
+
+        pause.addEventListener('click', ()=>{
+            clearInterval(timer);
+        })
+
+        reset.addEventListener('click', ()=>{
+            clearInterval(timer)
+            minutes = 4;
+            seconds = 59;
+            displayTimer.innerText = 'JS Timer'
+        })
+    </script>
+</body>
+</html>
